@@ -224,9 +224,25 @@ var AppViewModel = function() {
   }
 
   // check that Google Maps loaded
-  if (typeof google !== 'object' || typeof google.maps !== 'object') {
-    $('#search-summary').text("Could not load Google Maps API");
-  }
+self.errorMessage = ko.observable(); // observable to define error message text
+self.errorVisibility = ko.observable(false); // controls error message visibility (initially hidden)
+
+// check that Google Maps loaded
+if (typeof google !== 'object' || typeof google.maps !== 'object') {
+  self.errorMessage("Could not load Google Maps API");
+  self.errorVisibility(true);
+}
+
+
+
+
+
+  // if (typeof google !== 'object' || typeof google.maps !== 'object') {
+  //   $('#search-summary').text("Could not load Google Maps API");
+  // }
+
+
+
 
   // initialize defaults
 
@@ -407,8 +423,7 @@ var AppViewModel = function() {
   google.maps.event.addDomListener(window, 'load', initialize);
 };
 
-
-ko.applyBindings(new AppViewModel());
+// ko.applyBindings(new AppViewModel());
 function initMap() {
   ko.applyBindings(new AppViewModel());
 }
