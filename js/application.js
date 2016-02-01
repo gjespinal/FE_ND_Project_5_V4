@@ -55,20 +55,20 @@ var Corner = function(venueObject, map) {
   self.marker = (function(corner) {
     var marker;
 
-    var bounds = new google.maps.LatLngBounds();
+  
     // validate that the corner has a location (see `Corner` model for pseudo-validation)
     if (corner.location()) {
-        myLatLng = new google.maps.LatLng(corner.location());
+        myLatLng = corner.location();
         marker = new google.maps.Marker({
         position: corner.location(),
         map: map,
       });
         bounds.extend(myLatLng);
     }
-
+map.fitBounds(bounds);
     // return the marker object
     return marker;
-      map.fitBounds(bounds);
+     
   })(self);
 
   // returns the formatted HTML for a corner's upcoming open meetups
@@ -199,8 +199,10 @@ var GoogleMap = function(center, element) {
     mapTypeControl: false,
     panControl: false,
     streetViewControl: false,
+    
     zoomControl: false
-  };
+   };
+  bounds: new google.maps.LatLngBounds()
 
   // assign a google maps element
   map = new google.maps.Map(element, mapOptions);
