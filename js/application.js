@@ -63,9 +63,11 @@ var Corner = function(venueObject, map) {
         position: corner.location(),
         map: map,
       });
-        bounds.extend(myLatLng);
+        map.bounds.extend(myLatLng);
+        
     }
-map.fitBounds(bounds);
+map.fitBounds(map.bounds);
+// map.fitBounds()
     // return the marker object
     return marker;
      
@@ -189,7 +191,7 @@ var GoogleMap = function(center, element) {
   ];
 
   var mapOptions = {
-    zoom: 11,
+    zoom: 14,
     center: center,
     mapTypeControlOptions: {
       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'usroadatlas']
@@ -199,14 +201,14 @@ var GoogleMap = function(center, element) {
     mapTypeControl: false,
     panControl: false,
     streetViewControl: false,
-    
+    bounds: new google.maps.LatLngBounds(),
     zoomControl: false
    };
-  bounds: new google.maps.LatLngBounds()
+
 
   // assign a google maps element
   map = new google.maps.Map(element, mapOptions);
-
+  
   // apply custom map styling
   var styledMapOptions = {};
   var usRoadMapType = new google.maps.StyledMapType(roadAtlasStyles, styledMapOptions);
